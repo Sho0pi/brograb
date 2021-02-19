@@ -12,7 +12,7 @@ const (
 	chromiumCreditCardsFile = "Web Data"
 )
 
-// ProfileDir represents a profile path of specific profile on chromium based systems.
+// ProfileDir represents a profile directory of specific profile on chromium based systems.
 type ProfileDir string
 
 // Path returns the path of the profile directory.
@@ -55,17 +55,18 @@ func (p ProfileDir) BookmarksDB() string {
 // GetChromiumProfileDirs returns all the available Chromium profiles directories in the computer.
 // With the list of profile directories you will be able to create new Grabbers such as PasswordGrabber etc.
 func GetChromiumProfileDirs() ([]ProfileDir, error) {
-	return getChromiumProfileDirs(chromiumProfilePath)
+	return getChromiumBasedProfileDirs(chromiumProfilePath)
 }
 
-func getChromiumProfileDirs(profilePattern string) (directories []ProfileDir, err error) {
-	histFile := filepath.Join(profilePattern, chromiumHistoryFile)
-	histDBFiles, err := filepath.Glob(histFile)
+func getChromiumBasedProfileDirs(profilePattern string) (directories []ProfileDir, err error) {
+	histDBPattern := filepath.Join(profilePattern, chromiumHistoryFile)
+	// Uses the history database file to get all the profile directories containing it.
+	histDBFiles, err := filepath.Glob(histDBPattern)
 	if err != nil {
 		return
 	}
 	for _, p := range histDBFiles {
-		p, _ := filepath.Split(p) // Retrieve the parent directory of the history file -> usually `Default`
+		p, _ := filepath.Split(p) // Retrieve the parent directory - the profile directory.
 		directories = append(directories, ProfileDir(p))
 	}
 	return
