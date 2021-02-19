@@ -1,3 +1,3 @@
 module github.com/sho0pi/brograb
 
-go 1.14
+go 1.16
