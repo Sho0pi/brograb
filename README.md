@@ -47,12 +47,13 @@ func main() {
 
 ## TODO
 
-- [] Option to grab passwords.
-- [] Option to grab bookmarks.
-- [] Option to grab history.
-- [] Option to grab cookies.
-- [] Option to grab credit cards.
-- [] Support for Firefox.
-- [] Create CLI??
-- [] Support for IE?
-- [] Support for Safari?
+- [x] Utilities to get browser profile.
+- [ ] Option to grab passwords.
+- [ ] Option to grab bookmarks.
+- [ ] Option to grab history.
+- [ ] Option to grab cookies.
+- [ ] Option to grab credit cards.
+- [ ] Support for Firefox.
+- [ ] Create CLI??
+- [ ] Support for IE?
+- [ ] Support for Safari?
