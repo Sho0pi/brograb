@@ -15,7 +15,7 @@ This project is heavily inspire by [HackBrowserData](https://github.com/moonD4rk
 To start using BroGrab, run `go get`:
 
 ```shell
-$ go get github.com/sho0pi/brograb
+$ go get -u github.com/sho0pi/brograb
 ```
 
 ## Example
