@@ -119,6 +119,28 @@ func (b *Bookmark) Scan(dest interface{}) error {
 	return nil
 }
 
+// Iterate lets you iterate on all the available bookmarks with a basic for loop.
+func (b *Bookmark) Iterate() <-chan Bookmark {
+	ch := make(chan Bookmark, 16)
+	go func() {
+		defer close(ch)
+		defer b.Close()
+		for b.Next() {
+			var bookmark Bookmark
+			if err := b.Scan(&bookmark); err != nil {
+				break
+			}
+			ch <- bookmark
+			if bookmark.IsFolder() {
+				for nestedBookmark := range bookmark.Iterate() {
+					ch <- nestedBookmark
+				}
+			}
+		}
+	}()
+	return ch
+}
+
 func (b *Bookmark) setDateAdded(entry gjson.Result) error {
 	if d := entry.Get(bookmarkDateAddedKey); d.Exists() {
 		b.DateAdded = browserutils.FormatChromiumEpoch(d.Int())
