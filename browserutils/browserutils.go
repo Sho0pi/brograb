@@ -77,6 +77,8 @@ func getChromiumBasedProfileDirs(profilePattern string) (directories []ProfileDi
 func FormatChromiumEpoch(epoch int64) time.Time {
 	t := time.Date(1601, 1, 1, 0, 0, 0, 0, time.UTC)
 	d := time.Duration(epoch)
-	//t.Add(d * 1000)
-	return t.Add(d * 1000)
+	for i := 0; i < 1000; i++ {
+		t = t.Add(d)
+	}
+	return t
 }
