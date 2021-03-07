@@ -121,7 +121,7 @@ func (b *Bookmark) Scan(dest interface{}) error {
 
 func (b *Bookmark) setDateAdded(entry gjson.Result) error {
 	if d := entry.Get(bookmarkDateAddedKey); d.Exists() {
-		b.DateAdded = browserutils.TimeEpochFormat(d.Int())
+		b.DateAdded = browserutils.FormatChromiumEpoch(d.Int())
 		return nil
 	}
 	return dateAddedNotFound

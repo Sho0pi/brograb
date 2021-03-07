@@ -2,6 +2,7 @@ package browserutils
 
 import (
 	"path/filepath"
+	"time"
 )
 
 const (
@@ -70,4 +71,12 @@ func getChromiumBasedProfileDirs(profilePattern string) (directories []ProfileDi
 		directories = append(directories, ProfileDir(p))
 	}
 	return
+}
+
+// FormatChromiumEpoch format the epoch from the chromium db, to a human readable format.
+func FormatChromiumEpoch(epoch int64) time.Time {
+	t := time.Date(1601, 1, 1, 0, 0, 0, 0, time.UTC)
+	d := time.Duration(epoch)
+	//t.Add(d * 1000)
+	return t.Add(d * 1000)
 }
