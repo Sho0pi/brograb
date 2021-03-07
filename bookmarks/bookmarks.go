@@ -5,14 +5,8 @@ import (
 	"github.com/sho0pi/brograb"
 	"github.com/sho0pi/brograb/browserutils"
 	"github.com/tidwall/gjson"
+	"io/ioutil"
 	"time"
-)
-
-type BookmarkType int
-
-const (
-	URL BookmarkType = iota
-	FOLDER
 )
 
 const (
@@ -31,7 +25,35 @@ var (
 	dateAddedNotFound    = errors.New("unable to get bookmark creation date")
 	urlAddedNotFound     = errors.New("unable to fetch bookmark url")
 	childrenNotFound     = errors.New("unable to fetch bookmark children of folder")
+	bookmarkAreaNotFound = errors.New("cant find the wanted bookmark area")
 )
+
+type BookmarkType int
+
+const (
+	URL BookmarkType = iota
+	FOLDER
+)
+
+type BookmarkArea int
+
+const (
+	BOOKMARK_BAR BookmarkArea = iota
+	OTHER
+	SYNCED
+)
+
+func (b BookmarkArea) String() string {
+	switch b {
+	case BOOKMARK_BAR:
+		return "bookmark_area"
+	case OTHER:
+		return "other"
+	case SYNCED:
+		return "synced"
+	}
+	return ""
+}
 
 // BookmarkGrabber extends the Grabber interface, for bookmarks specific grabbing.
 type BookmarkGrabber interface {
@@ -184,4 +206,42 @@ func (b *Bookmark) setType(entry gjson.Result) error {
 		return nil
 	}
 	return bookmarkTypeNotFound
+}
+
+// NewChromiumBookmarksGrabber return a new grabber of type Bookmark, with the wanted BookmarkArea.
+func NewChromiumBookmarksGrabber(profile browserutils.ProfileDir, area BookmarkArea) (*Bookmark, error) {
+	json, err := ioutil.ReadFile(profile.BookmarksDB())
+	if err != nil {
+		return nil, err
+	}
+	bookmarks := gjson.Parse(string(json))
+
+	entry := bookmarks.Get(area.String())
+	if !entry.Exists() {
+		return nil, bookmarkAreaNotFound
+	}
+	var bookmark Bookmark
+
+	if err := bookmark.setDateAdded(entry); err != nil {
+		return nil, err
+	}
+	if err := bookmark.setName(entry); err != nil {
+		return nil, err
+	}
+	if err := bookmark.setType(entry); err != nil {
+		return nil, err
+	}
+
+	switch bookmark.IsFolder() {
+	case true:
+		if err := bookmark.setChildren(entry); err != nil {
+			return nil, err
+		}
+	case false:
+		if err := bookmark.setURL(entry); err != nil {
+			return nil, err
+		}
+	}
+
+	return &bookmark, nil
 }
