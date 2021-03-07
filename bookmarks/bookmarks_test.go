@@ -2,8 +2,10 @@ package bookmarks
 
 import (
 	"fmt"
+	"github.com/sho0pi/brograb/browserutils"
 	"github.com/stretchr/testify/assert"
 	"github.com/tidwall/gjson"
+	"log"
 	"testing"
 	"time"
 )
@@ -91,4 +93,25 @@ func TestBookmark_setType(t *testing.T) {
 	assert.Equal(bookmark.Type, URL)
 
 	assert.Error(bookmark.setType(emptyResult))
+}
+
+func ExampleNewChromiumBookmarksGrabber() {
+	profiles, err := browserutils.GetChromiumProfileDirs()
+	if err != nil {
+		log.Fatal(err)
+	}
+	profile := profiles[0]
+
+	bookmarks, err := NewChromiumBookmarksGrabber(profile, BOOKMARK_BAR)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for b := range bookmarks.Iterate() {
+		if b.IsFolder() {
+			fmt.Println(b.Name, b.DateAdded)
+		} else {
+			fmt.Println(b.Name, b.URL, b.DateAdded)
+		}
+	}
 }
