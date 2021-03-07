@@ -1,5 +1,7 @@
 # BroGrab
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/sho0pi/brograb.svg)](https://pkg.go.dev/github.com/sho0pi/brograb)
+
 brograb is an open-source Go package that help your go modules fetch and grab browser data
 (passwords, bookmarks, cookies, history etc...) from all the common browsers. Our goal is to create cross platform API
 to fetch and decrypt the browser data. 
