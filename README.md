@@ -27,9 +27,13 @@ To iterate on Chrome passwords is simple as:
 ```go
 package main
 
-import "github.com/sho0pi/brograb/passwords"
+import (
+	"github.com/sho0pi/brograb/passwords"
+	"github.com/sho0pi/brograb/browseruttils"
+	)
 
 func main() {
+	// Gets all the available browser profiles
 	profiles, err := browserutils.GetChromiumProfileDirs()
 
 	grabber, err := passwords.NewChromeGrabber(profiles[0])
