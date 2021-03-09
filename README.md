@@ -30,7 +30,7 @@ package main
 import (
 	"github.com/sho0pi/brograb/passwords"
 	"github.com/sho0pi/brograb/browseruttils"
-	)
+)
 
 func main() {
 	// Gets all the available browser profiles
