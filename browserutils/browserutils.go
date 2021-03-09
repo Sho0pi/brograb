@@ -25,7 +25,7 @@ func (p ProfileDir) Path() string {
 //
 // Note: In case of multiply users in the system, the Name still could be the same. (Usually: Default)
 func (p ProfileDir) Name() string {
-	return string(p)
+	return filepath.Base(p.Path())
 }
 
 // PasswordsDB returns the path to the chromium database containing the login data.
