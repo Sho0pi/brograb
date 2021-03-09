@@ -208,8 +208,8 @@ func (b *Bookmark) setType(entry gjson.Result) error {
 	return bookmarkTypeNotFound
 }
 
-// NewChromiumBookmarksGrabber return a new grabber of type Bookmark, with the wanted BookmarkArea.
-func NewChromiumBookmarksGrabber(profile browserutils.ProfileDir, area BookmarkArea) (*Bookmark, error) {
+// NewChromiumGrabber return a new grabber of type Bookmark, with the wanted BookmarkArea.
+func NewChromiumGrabber(profile browserutils.ProfileDir, area BookmarkArea) (*Bookmark, error) {
 	json, err := ioutil.ReadFile(profile.BookmarksDB())
 	if err != nil {
 		return nil, err

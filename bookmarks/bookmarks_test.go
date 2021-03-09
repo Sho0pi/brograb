@@ -95,14 +95,14 @@ func TestBookmark_setType(t *testing.T) {
 	assert.Error(bookmark.setType(emptyResult))
 }
 
-func ExampleNewChromiumBookmarksGrabber() {
+func ExampleNewChromiumGrabber() {
 	profiles, err := browserutils.GetChromiumProfileDirs()
 	if err != nil {
 		log.Fatal(err)
 	}
 	profile := profiles[0]
 
-	bookmarks, err := NewChromiumBookmarksGrabber(profile, BOOKMARK_BAR)
+	bookmarks, err := NewChromiumGrabber(profile, BOOKMARK_BAR)
 	if err != nil {
 		log.Fatal(err)
 	}
