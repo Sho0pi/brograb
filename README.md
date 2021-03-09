@@ -30,7 +30,9 @@ package main
 import "github.com/sho0pi/brograb/passwords"
 
 func main() {
-	grabber, err := passwords.NewChromeGrabber()
+	profiles, err := browserutils.GetChromiumProfileDirs()
+
+	grabber, err := passwords.NewChromeGrabber(profiles[0])
 
 	// Using sql like API
 	if grabber.Next() {
