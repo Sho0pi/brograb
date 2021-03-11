@@ -19,7 +19,6 @@ const (
 
 var (
 	invalidBookmarkType  = errors.New("bookmark is not of type folder")
-	badDestFile          = errors.New("bad dest type")
 	bookmarkNameNotFound = errors.New("unable to find bookmark display name")
 	bookmarkTypeNotFound = errors.New("unable to fetch bookmark type")
 	dateAddedNotFound    = errors.New("unable to get bookmark creation date")
@@ -106,7 +105,7 @@ func (b *Bookmark) Next() bool {
 func (b *Bookmark) Scan(dest interface{}) error {
 	bookmarkDest, ok := dest.(*Bookmark)
 	if !ok {
-		return badDestFile
+		return brograb.BadDestFile
 	}
 	if !b.IsFolder() {
 		return invalidBookmarkType

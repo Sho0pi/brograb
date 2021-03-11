@@ -1,5 +1,11 @@
 package brograb
 
+import "errors"
+
+var (
+	BadDestFile = errors.New("bad dest type")
+)
+
 // Grabber is a basic data grabbing interface. Use Next and Scan to fetch the next grabbing data.
 type Grabber interface {
 
