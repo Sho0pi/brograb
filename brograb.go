@@ -3,7 +3,7 @@ package brograb
 import "errors"
 
 var (
-	BadDestFile = errors.New("bad dest type")
+	BadDestFile = errors.New("bad destination type")
 )
 
 // Grabber is a basic data grabbing interface. Use Next and Scan to fetch the next grabbing data.
