@@ -58,7 +58,7 @@ func main() {
 - [x] Utilities to get browser profile.
 - [ ] Option to grab passwords.
 - [x] Option to grab bookmarks.
-- [ ] Option to grab history.
+- [x] Option to grab history.
 - [ ] Option to grab cookies.
 - [ ] Option to grab credit cards.
 - [ ] Support for Firefox.
