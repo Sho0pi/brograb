@@ -3,7 +3,7 @@
 package browserutils
 
 const (
-	chromiumProfilePath   = "/home/*/.config/chromium/*/"
-	chromeProfilePath     = "/home/*/.config/google-chrome/*/"
-	chromeBetaProfilePath = "/home/*/.config/google-chrome-beta/*/"
+	ChromiumProfilePath   = "/home/*/.config/chromium/*/"
+	ChromeProfilePath     = "/home/*/.config/google-chrome/*/"
+	ChromeBetaProfilePath = "/home/*/.config/google-chrome-beta/*/"
 )

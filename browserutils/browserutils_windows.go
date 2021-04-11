@@ -3,7 +3,7 @@
 package browserutils
 
 const (
-	chromiumProfilePath   = "/AppData/Local/Chromium/User Data/*/"
-	chromeProfilePath     = "/AppData/Local/Google/Chrome/User Data/*/"
-	chromeBetaProfilePath = "/AppData/Local/Google/Chrome Beta/User Data/*/"
+	ChromiumProfilePath   = "/AppData/Local/Chromium/User Data/*/"
+	ChromeProfilePath     = "/AppData/Local/Google/Chrome/User Data/*/"
+	ChromeBetaProfilePath = "/AppData/Local/Google/Chrome Beta/User Data/*/"
 )

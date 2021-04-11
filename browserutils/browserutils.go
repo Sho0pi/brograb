@@ -53,12 +53,6 @@ func (p ProfileDir) BookmarksDB() string {
 	return filepath.Join(p.Path(), chromiumBookmarksFile)
 }
 
-// GetChromiumProfileDirs returns all the available Chromium profiles directories in the computer.
-// With the list of profile directories you will be able to create new Grabbers such as PasswordGrabber etc.
-func GetChromiumProfileDirs() ([]ProfileDir, error) {
-	return getChromiumBasedProfileDirs(chromiumProfilePath)
-}
-
 // GetChromeProfileDirs returns all the available Chrome profiles directories in the computer.
 // With the list of profile directories you will be able to create new Grabbers such as PasswordGrabber etc.
 func GetChromeProfileDirs() ([]ProfileDir, error) {
@@ -71,7 +65,7 @@ func GetChromeBetaProfileDirs() ([]ProfileDir, error) {
 	return getChromiumBasedProfileDirs(chromeBetaProfilePath)
 }
 
-func getChromiumBasedProfileDirs(profilePattern string) (directories []ProfileDir, err error) {
+func GetChromiumBasedProfileDirs(profilePattern string) (directories []ProfileDir, err error) {
 	histDBPattern := filepath.Join(profilePattern, chromiumHistoryFile)
 	// Uses the history database file to get all the profile directories containing it.
 	histDBFiles, err := filepath.Glob(histDBPattern)
