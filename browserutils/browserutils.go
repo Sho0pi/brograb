@@ -1,6 +1,8 @@
 package browserutils
 
 import (
+	"github.com/sho0pi/brograb/bookmarks"
+	"github.com/sho0pi/brograb/history"
 	"path/filepath"
 	"time"
 )
@@ -15,6 +17,14 @@ const (
 
 // ProfileDir represents a profile directory of specific profile on chromium based systems.
 type ProfileDir string
+
+func (p ProfileDir) BookmarksGrabber(area bookmarks.BookmarkArea) (*bookmarks.Bookmark, error) {
+	return bookmarks.NewChromiumGrabber(p, area)
+}
+
+func (p ProfileDir) HistoryGrabber(date time.Time) (*history.ChromiumGrabber, error) {
+	return history.NewChromiumGrabber(p, date)
+}
 
 // Path returns the path of the profile directory.
 func (p ProfileDir) Path() string {
@@ -51,32 +61,6 @@ func (p ProfileDir) CookiesDB() string {
 // HistoryDB returns the path to the bookmarks database.
 func (p ProfileDir) BookmarksDB() string {
 	return filepath.Join(p.Path(), chromiumBookmarksFile)
-}
-
-// GetChromeProfileDirs returns all the available Chrome profiles directories in the computer.
-// With the list of profile directories you will be able to create new Grabbers such as PasswordGrabber etc.
-func GetChromeProfileDirs() ([]ProfileDir, error) {
-	return getChromiumBasedProfileDirs(chromeProfilePath)
-}
-
-// GetChromeBetaProfileDirs returns all the available Chrome Beta profiles directories in the computer.
-// With the list of profile directories you will be able to create new Grabbers such as PasswordGrabber etc.
-func GetChromeBetaProfileDirs() ([]ProfileDir, error) {
-	return getChromiumBasedProfileDirs(chromeBetaProfilePath)
-}
-
-func GetChromiumBasedProfileDirs(profilePattern string) (directories []ProfileDir, err error) {
-	histDBPattern := filepath.Join(profilePattern, chromiumHistoryFile)
-	// Uses the history database file to get all the profile directories containing it.
-	histDBFiles, err := filepath.Glob(histDBPattern)
-	if err != nil {
-		return
-	}
-	for _, p := range histDBFiles {
-		p, _ := filepath.Split(p) // Retrieve the parent directory - the profile directory.
-		directories = append(directories, ProfileDir(p))
-	}
-	return
 }
 
 // FormatChromiumEpoch format the epoch from the chromium db, to a human readable format.
