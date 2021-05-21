@@ -18,12 +18,16 @@ const (
 // ProfileDir represents a profile directory of specific profile on chromium based systems.
 type ProfileDir string
 
+// BookmarksGrabber returns a new Bookmark grabber, that let you grab bookmark from the browser.
 func (p ProfileDir) BookmarksGrabber(area bookmarks.BookmarkArea) (*bookmarks.Bookmark, error) {
 	return bookmarks.NewChromiumGrabber(p, area)
 }
 
-func (p ProfileDir) HistoryGrabber(date time.Time) (*history.ChromiumGrabber, error) {
-	return history.NewChromiumGrabber(p, date)
+// HistoryGrabber returns a new History grabber, that let you grab history between two specific dates.
+// Note: If you specify from as null, it will begin the iteration from the beggnig of the DB.
+// If you specify to as null, the grabber will iterate until the end of the DB.
+func (p ProfileDir) HistoryGrabber(from *time.Time, to *time.Time) (*history.ChromiumGrabber, error) {
+	return history.NewChromiumGrabber(p, "")
 }
 
 // Path returns the path of the profile directory.
