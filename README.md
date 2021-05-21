@@ -36,7 +36,7 @@ func main() {
 	// Gets all the available browser profiles
 	profiles, err := browserutils.GetChromiumProfileDirs()
 
-	grabber, err := passwords.NewChromeGrabber(profiles[0])
+	grabber, err := profiles[0].PasswordGrabber()
 
 	// Using sql like API
 	if grabber.Next() {
